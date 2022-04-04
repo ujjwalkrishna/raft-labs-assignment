@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knight Tour</title>
+</head>
+
+<body>
+    <div class="main">
+        <h1>All possible knight positions:</h1>
+    </div>
+    
+    <script>
+        var element = document.querySelector('.main');
+        function dfs(mat, x, y, dx, dy, n, m) {
+            if (x < 0 || x >= n || y < 0 || y >= m || mat[x][y] != 0) return;
+            mat[x][y] = 1;
+            element.innerHTML += `<h3>x: ${x}, y: ${y}</h3>`;
+            for (let i = 0; i < 8; i++) {
+                let nx = x + dx[i], ny = y + dy[i];
+                dfs(mat, nx, ny, dx, dy, n, m);
+            }
+        }
+
+        function findPossiblePlaces(mat, n, m) {
+
+            //0-based indexing
+            let inital_x_pos = parseInt(prompt("Please enter knight's x-position"));
+            let inital_y_pos = parseInt(prompt("Please enter knight's y-position"));
+
+            // All the direction where knight can move from current position
+            let dx = [2, 1, -1, -2, -2, -1, 1, 2];
+            let dy = [1, 2, 2, 1, -1, -2, -2, -1];
+
+            dfs(mat, inital_x_pos, inital_y_pos, dx, dy, n, m);
+        }
+
+        //Instansiate 2D array for visited positions of knight
+        let n = 8, m = 8;  // size of matrix n*m
+        let mat = new Array(n);
+        for (let i = 0; i < n; i++) {
+            mat[i] = new Array(m);
+        }
+
+        //Initialize array mat
+        for (let i = 0; i < n; i++) {
+            for (let j = 0; j < m; j++) {
+                mat[i][j] = 0;
+            }
+        }
+
+        //Calling function
+        findPossiblePlaces(mat, n, m);
+
+    </script>
+</body>
+
+</html>
